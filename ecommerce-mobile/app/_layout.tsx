@@ -5,7 +5,14 @@ import { Stack } from "expo-router";
 const RootLayout = () => {
   return (
     <GluestackUIProvider>
-      <Stack />
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: "Shopping",
+          }}
+        />
+      </Stack>
     </GluestackUIProvider>
   );
 };
