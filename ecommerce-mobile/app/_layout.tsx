@@ -1,4 +1,4 @@
-import "@/global2.css";
+import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { Stack } from "expo-router";
 

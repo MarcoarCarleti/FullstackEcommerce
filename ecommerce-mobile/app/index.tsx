@@ -5,15 +5,13 @@ import { Button, ButtonText } from "@/components/ui/button";
 
 const HomeScreen = () => {
   return (
-    <Button>
-      <ButtonText>Press me!</ButtonText>
-    </Button>
-    // <View>
-    //   <FlatList
-    //     data={products}
-    //     renderItem={({ item }) => <ProductListItem product={item} />}
-    //   />
-    // </View>
+    <FlatList
+      data={products}
+      numColumns={2}
+      contentContainerClassName="gap-2"
+      columnWrapperClassName="gap-2"
+      renderItem={({ item }) => <ProductListItem product={item} />}
+    />
   );
 };
 
