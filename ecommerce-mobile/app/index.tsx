@@ -1,9 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
+import products from "../assets/products.json";
+import ProductListItem from "../components/product-list-item";
 
 const HomeScreen = () => {
   return (
     <View>
-      <Text style={{ fontSize: 30 }}>Home screen</Text>
+      <FlatList
+        data={products}
+        renderItem={({ item }) => <ProductListItem product={item} />}
+      />
     </View>
   );
 };

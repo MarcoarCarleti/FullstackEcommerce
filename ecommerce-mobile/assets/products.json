@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "AirPods Pro",
+    "description": "Fones de ouvido sem fio da Apple com cancelamento de ruído, transparência adaptativa e áudio espacial.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/airpodspro.jpg",
+    "price": 1531.49
+  },
+  {
+    "id": 2,
+    "name": "Apple Watch Series 9",
+    "description": "Último smartwatch da Apple com display retina sempre ativo e monitoramento avançado de saúde.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/applewatch.jpg",
+    "price": 2452.46
+  },
+  {
+    "id": 3,
+    "name": "Fones de Ouvido Bose com Cancelamento de Ruído",
+    "description": "Fones de ouvido premium com cancelamento de ruído, 20 horas de bateria e integração com assistente de voz.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/boseheadphones.jpg",
+    "price": 2144.89
+  },
+  {
+    "id": 4,
+    "name": "Aspirador Dyson V15",
+    "description": "Aspirador sem fio potente com tecnologia de detecção a laser e sistema avançado de filtragem.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/dysonvacuum.jpg",
+    "price": 4287.86
+  },
+  {
+    "id": 5,
+    "name": "Samsung Galaxy S24 Ultra",
+    "description": "Smartphone topo de linha com câmera de 200 MP, display AMOLED de 120 Hz e suporte a S Pen.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/galaxys24ultra.jpg",
+    "price": 7357.98
+  },
+  {
+    "id": 6,
+    "name": "iPad Pro",
+    "description": "iPad Pro de 12,9 polegadas com chip M2, display Liquid Retina XDR e conectividade 5G.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/ipad.jpg",
+    "price": 6736.99
+  },
+  {
+    "id": 7,
+    "name": "iPhone 16 Pro",
+    "description": "Último iPhone da Apple com chip A18 Bionic, display ProMotion e sistema avançado de câmera tripla.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/iphone16pro.jpg",
+    "price": 7966.99
+  },
+  {
+    "id": 8,
+    "name": "MacBook Pro de 16 polegadas",
+    "description": "Laptop de alto desempenho com chip M2 Max, display Liquid Retina XDR e SSD de 1TB.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/macbookpro.jpg",
+    "price": 15323.93
+  },
+  {
+    "id": 9,
+    "name": "Nike Air Max 270",
+    "description": "Tênis de corrida popular com amortecimento Nike Air e cabedal em malha respirável.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/nikeairmax.jpg",
+    "price": 918.34
+  },
+  {
+    "id": 10,
+    "name": "PlayStation 5",
+    "description": "Último console de jogos da Sony com saída 8K, tempos de carregamento ultrarrápidos e SSD de 825GB.",
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/ecom/playstation5.jpg",
+    "price": 3061.39
+  }
+]
