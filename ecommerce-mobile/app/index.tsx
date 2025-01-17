@@ -1,15 +1,19 @@
 import { View, Text, FlatList } from "react-native";
 import products from "../assets/products.json";
 import ProductListItem from "../components/product-list-item";
+import { Button, ButtonText } from "@/components/ui/button";
 
 const HomeScreen = () => {
   return (
-    <View>
-      <FlatList
-        data={products}
-        renderItem={({ item }) => <ProductListItem product={item} />}
-      />
-    </View>
+    <Button>
+      <ButtonText>Press me!</ButtonText>
+    </Button>
+    // <View>
+    //   <FlatList
+    //     data={products}
+    //     renderItem={({ item }) => <ProductListItem product={item} />}
+    //   />
+    // </View>
   );
 };
 
