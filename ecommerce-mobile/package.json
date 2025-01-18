@@ -1,7 +1,7 @@
 {
   "name": "ecommerce-mobile",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -23,6 +23,7 @@
     "expo-linking": "~7.0.4",
     "expo-router": "~4.0.16",
     "expo-status-bar": "~2.0.1",
+    "lucide-react-native": "^0.473.0",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",

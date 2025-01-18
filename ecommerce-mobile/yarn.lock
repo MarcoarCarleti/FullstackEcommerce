@@ -1224,7 +1224,7 @@
 
 "@gluestack-ui/icon@^0.1.25":
   version "0.1.25"
-  resolved "https://registry.npmjs.org/@gluestack-ui/icon/-/icon-0.1.25.tgz"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/icon/-/icon-0.1.25.tgz#234a75896a388b39cd3c9f5b5a033cc5dcb546ee"
   integrity sha512-HCyiHHHZzHpP5MIy5F2hP8iBc+0yt2NNM+jhbPYeoRG4WY7wc1whaUs9EIQvj880cq/zxOQP0Bz4mnyhuKsEKQ==
   dependencies:
     "@gluestack-ui/provider" "^0.1.13"
@@ -4779,6 +4779,11 @@ lru-cache@^5.1.1:
   integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
   dependencies:
     yallist "^3.0.2"
+
+lucide-react-native@^0.473.0:
+  version "0.473.0"
+  resolved "https://registry.yarnpkg.com/lucide-react-native/-/lucide-react-native-0.473.0.tgz#7b1e53daaa2417825c7c6558ef08abfad4bd9a1f"
+  integrity sha512-gh3Aq7EUTdlwKNmfiyimE8+npkTNm9mZXHHM2OwRAZrlicId3cYNIm9yNFQrBXuHvqOhTm7iQIxuO/B/c7ycFA==
 
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
