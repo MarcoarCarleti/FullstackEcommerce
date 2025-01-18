@@ -1,6 +1,5 @@
 import { Text } from "@/components/ui/text";
 import { Stack, useLocalSearchParams } from "expo-router";
-import products from "@/assets/products.json";
 import { Card } from "@/components/ui/card";
 import { Image } from "@/components/ui/image";
 import { VStack } from "@/components/ui/vstack";
@@ -8,13 +7,27 @@ import { Heading } from "@/components/ui/heading";
 import { formatCurrency } from "@/utils";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProductById } from "@/api/products";
+import { ActivityIndicator } from "react-native";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const product = products.find((p) => p.id === Number(id));
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["products", id],
+    queryFn: () => fetchProductById(Number(id)),
+  });
 
-  if (!product) {
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error) {
     return <Text>Produto não encontrado</Text>;
   }
 
