@@ -7,11 +7,13 @@ import { ShoppingCart, User } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Text } from "@/components/ui/text";
 import { useCart } from "@/store/cart-store";
+import { useAuth } from "@/store/authStore";
 
 const queryClient = new QueryClient();
 
 const RootLayout = () => {
   const cartItemsNum = useCart((state) => state.items.length);
+  const isLoggedIn = useAuth((s) => !!s.token);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -27,19 +29,20 @@ const RootLayout = () => {
                   </Pressable>
                 </Link>
               ),
-            headerLeft: () => (
-              <Link href={"/login"} asChild>
-                <Pressable className="flex-row gap-2">
-                  <Icon as={User} />
-                </Pressable>
-              </Link>
-            ),
           }}
         >
           <Stack.Screen
             name="index"
             options={{
               title: "Produtos",
+              headerLeft: () =>
+                !isLoggedIn && (
+                  <Link href={"/login"} asChild>
+                    <Pressable className="flex-row gap-2">
+                      <Icon as={User} />
+                    </Pressable>
+                  </Link>
+                ),
             }}
           />
           <Stack.Screen
@@ -52,6 +55,18 @@ const RootLayout = () => {
             name="cart"
             options={{
               title: "Carrinho",
+            }}
+          />
+          <Stack.Screen
+            name="(auth)/login"
+            options={{
+              title: "Login",
+            }}
+          />
+          <Stack.Screen
+            name="(auth)/signup"
+            options={{
+              title: "Cadastro",
             }}
           />
         </Stack>

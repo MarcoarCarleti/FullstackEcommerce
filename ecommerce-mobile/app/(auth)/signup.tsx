@@ -15,16 +15,17 @@ import { useAuth } from "@/store/authStore";
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const setUser = useAuth((s) => s.setUser);
   const setToken = useAuth((s) => s.setToken);
   const isLoggedIn = useAuth((s) => !!s.token);
 
-  const loginMutation = useMutation({
-    mutationFn: () => login(email, password),
+  const signupMutation = useMutation({
+    mutationFn: () => signup(name, email, password),
     onSuccess: (data) => {
-      console.log("success");
+      console.log("success sign up");
 
       if (data.user && data.token) {
         setUser(data.user);
@@ -43,16 +44,24 @@ export default function LoginScreen() {
   };
 
   if (isLoggedIn) {
-    return <Redirect href={"/"} />;
+    return <Redirect href="/" />;
   }
 
   return (
     <FormControl
-      isInvalid={loginMutation.isError}
+      isInvalid={signupMutation.isError}
       className="p-4 border rounded-lg max-w-[500px] border-outline-300 bg-white m-2"
     >
       <VStack space="xl">
-        <Heading className="text-typography-900 leading-3 pt-3">Login</Heading>
+        <Heading className="text-typography-900 leading-3 pt-3">
+          Cadastro
+        </Heading>
+        <VStack space="xs">
+          <Text className="text-typography-500 leading-1">Nome</Text>
+          <Input>
+            <InputField value={name} onChangeText={setName} type="text" />
+          </Input>
+        </VStack>
         <VStack space="xs">
           <Text className="text-typography-500 leading-1">E-mail</Text>
           <Input>
@@ -76,18 +85,18 @@ export default function LoginScreen() {
           </Input>
         </VStack>
         <HStack space="sm">
-          <Link href={"/signup"} asChild>
+          <Link href="/login" asChild>
             <Button className="flex-1" variant="outline">
-              <ButtonText>Cadastro</ButtonText>
+              <ButtonText>Login</ButtonText>
             </Button>
           </Link>
           <Button
             className="flex-1"
             onPress={() => {
-              loginMutation.mutate();
+              signupMutation.mutate();
             }}
           >
-            <ButtonText>Login</ButtonText>
+            <ButtonText>Cadastrar-se</ButtonText>
           </Button>
         </HStack>
       </VStack>
