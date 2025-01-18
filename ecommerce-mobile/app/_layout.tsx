@@ -3,7 +3,7 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { Link, Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Icon } from "@/components/ui/icon";
-import { ShoppingCart } from "lucide-react-native";
+import { ShoppingCart, User } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Text } from "@/components/ui/text";
 import { useCart } from "@/store/cart-store";
@@ -27,6 +27,13 @@ const RootLayout = () => {
                   </Pressable>
                 </Link>
               ),
+            headerLeft: () => (
+              <Link href={"/login"} asChild>
+                <Pressable className="flex-row gap-2">
+                  <Icon as={User} />
+                </Pressable>
+              </Link>
+            ),
           }}
         >
           <Stack.Screen
