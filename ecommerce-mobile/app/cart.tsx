@@ -1,3 +1,4 @@
+import { createOrder } from "@/api/orders";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
@@ -5,6 +6,7 @@ import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { useCart } from "@/store/cart-store";
 import { formatCurrency } from "@/utils";
+import { useMutation } from "@tanstack/react-query";
 import { Redirect } from "expo-router";
 import { View, FlatList } from "react-native";
 
@@ -12,8 +14,26 @@ const CartScreen = () => {
   const items = useCart((state) => state.items);
   const resetCart = useCart((state) => state.resetCart);
 
+  const createOrderMutation = useMutation({
+    mutationFn: () =>
+      createOrder(
+        items.map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+          price: item.product.price,
+        }))
+      ),
+    onSuccess(data, variables, context) {
+      console.log(data);
+      resetCart();
+    },
+    onError(error, variables, context) {
+      console.log(error);
+    },
+  });
+
   async function onCheckout() {
-    resetCart();
+    createOrderMutation.mutate();
   }
 
   if (items.length <= 0) {
