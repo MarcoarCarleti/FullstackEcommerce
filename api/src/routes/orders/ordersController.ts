@@ -42,7 +42,16 @@ export async function createOrder(req: Request, res: Response) {
 // else, return only orders filtered by req.userId
 export async function listOrders(req: Request, res: Response) {
   try {
-    const orders = await db.select().from(ordersTable);
+    const userId = req.userId;
+
+    if (!userId) {
+      res.status(400).json({ message: "Invalid order data" });
+    }
+
+    const orders = await db
+      .select()
+      .from(ordersTable)
+      .where(eq(ordersTable.userId, Number(userId)));
     res.json(orders);
   } catch (error) {
     res.status(500).send(error);
