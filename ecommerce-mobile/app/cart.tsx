@@ -2,6 +2,7 @@ import { createOrder } from "@/api/orders";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
+import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { useCart } from "@/store/cart-store";
@@ -43,10 +44,18 @@ const CartScreen = () => {
   return (
     <FlatList
       data={items}
-      contentContainerClassName="gap-2 max-w-[960px] w-full mx-auto p-2"
+      contentContainerClassName="gap-2 max-w-[960px] w-full h-full mx-auto p-2"
       renderItem={({ item }) => (
         <Box>
           <HStack className="bg-white p-3">
+            <Image
+              source={{
+                uri: item.product.image,
+              }}
+              className="mr-6 rounded-md"
+              alt={`${item.product.name} image`}
+              resizeMode="contain"
+            />
             <VStack space="sm">
               <Text bold>{item.product.name}</Text>
               <Text>{formatCurrency(item.product.price)}</Text>
@@ -56,9 +65,16 @@ const CartScreen = () => {
         </Box>
       )}
       ListFooterComponent={() => (
-        <Button onPress={onCheckout}>
-          <ButtonText>Checkout</ButtonText>
-        </Button>
+        <Box className="mt-auto">
+          <Text bold>
+            {formatCurrency(
+              items.reduce((total, item) => total + item.product.price, 0)
+            )}
+          </Text>
+          <Button onPress={onCheckout}>
+            <ButtonText>Checkout</ButtonText>
+          </Button>
+        </Box>
       )}
     />
   );
