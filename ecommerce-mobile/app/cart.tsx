@@ -3,6 +3,7 @@ import { createPaymentintent } from "@/api/stripe";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonSpinner, ButtonText } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
+import { Icon } from "@/components/ui/icon";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import {
@@ -18,12 +19,16 @@ import { formatCurrency } from "@/utils";
 import { useStripe } from "@stripe/stripe-react-native";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Redirect, useRouter } from "expo-router";
+import { MinusIcon, PlusIcon, XIcon } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Pressable } from "react-native";
 
 const CartScreen = () => {
   const items = useCart((state) => state.items);
   const resetCart = useCart((state) => state.resetCart);
+  const removeProduct = useCart((state) => state.removeProduct);
+  const addProduct = useCart((state) => state.addProduct);
+
   const isLoggedIn = useAuth((s) => !!s.token);
   const user = useAuth((s) => s.user);
   const router = useRouter();
@@ -133,6 +138,14 @@ const CartScreen = () => {
     router.push(`/orders`);
   };
 
+  const handleRemoveProductClick = (productId: number) => {
+    removeProduct(productId);
+  };
+
+  const handleAddProductClick = (product: any) => {
+    addProduct(product);
+  };
+
   async function onCheckout() {
     if (!isLoggedIn) {
       return router.replace("/login");
@@ -151,42 +164,84 @@ const CartScreen = () => {
   }
 
   return (
-    <FlatList
-      data={items}
-      contentContainerClassName="gap-2 max-w-[960px] w-full h-full mx-auto p-2"
-      renderItem={({ item }) => (
-        <Box>
-          <HStack className="bg-white p-3">
-            <Image
-              source={{
-                uri: item.product.image,
-              }}
-              className="mr-6 rounded-md"
-              alt={`${item.product.name} image`}
-              resizeMode="contain"
-            />
-            <VStack space="sm">
-              <Text bold>{item.product.name}</Text>
-              <Text>{formatCurrency(item.product.price)}</Text>
-            </VStack>
-            <Text className="ml-auto">{item.quantity}</Text>
-          </HStack>
-        </Box>
-      )}
-      ListFooterComponent={() => (
-        <Box className="mt-auto">
-          <Text bold>
+    <View className="flex-1">
+      {/* Lista de Itens */}
+      <FlatList
+        data={items}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerClassName="gap-2 max-w-[960px] w-full  mx-auto p-2" // Adiciona espaço no final para o botão
+        renderItem={({ item }) => (
+          <Box>
+            <HStack className="bg-white p-3">
+              <Image
+                source={{
+                  uri: item.product.image,
+                }}
+                className="mr-6 rounded-md"
+                alt={`${item.product.name} image`}
+                resizeMode="contain"
+              />
+              <VStack space="sm">
+                <Text
+                  bold
+                  style={{
+                    overflow: "hidden",
+                    maxWidth: "80%", 
+                  }}
+                >
+                  {item.product.name}
+                </Text>
+                <Text>{formatCurrency(item.product.price)}</Text>
+              </VStack>
+
+              <VStack space="lg" className="ml-auto items-center">
+                <Text>{item.quantity}</Text>
+                <HStack space="md">
+                  {item.quantity > 1 ? (
+                    <Pressable
+                      onPress={() => handleRemoveProductClick(item.product.id)}
+                    >
+                      <Icon as={MinusIcon}></Icon>
+                    </Pressable>
+                  ) : (
+                    <Pressable
+                      onPress={() => handleRemoveProductClick(item.product.id)}
+                    >
+                      <Icon as={XIcon} className="text-red-500"></Icon>
+                    </Pressable>
+                  )}
+                  <Pressable
+                    onPress={() => handleAddProductClick(item.product)}
+                  >
+                    <Icon as={PlusIcon}></Icon>
+                  </Pressable>
+                </HStack>
+              </VStack>
+            </HStack>
+          </Box>
+        )}
+      />
+      {/* Checkout fixo */}
+      <Box className="absolute bottom-0 left-0 right-0 bg-white p-4 shadow-md pb-8">
+        <HStack className="justify-between mb-2">
+          <Text bold className="text-lg">
+            Total
+          </Text>
+          <Text bold className=" text-lg">
             {formatCurrency(
-              items.reduce((total, item) => total + item.product.price, 0)
+              items.reduce(
+                (total, item) => total + item.product.price * item.quantity,
+                0
+              )
             )}
           </Text>
-          <Button onPress={onCheckout} disabled={isLoading}>
-            {isLoading && <ButtonSpinner />}
-            <ButtonText>Checkout</ButtonText>
-          </Button>
-        </Box>
-      )}
-    />
+        </HStack>
+        <Button onPress={onCheckout} disabled={isLoading}>
+          {isLoading && <ButtonSpinner />}
+          <ButtonText>Checkout</ButtonText>
+        </Button>
+      </Box>
+    </View>
   );
 };
 

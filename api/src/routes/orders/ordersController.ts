@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { db } from "../../db/index.js";
 import { orderItemsTable, ordersTable } from "../../db/ordersSchema.js";
 import { eq } from "drizzle-orm";
+import { productsTable } from "../../db/productsSchema.js";
 
 export async function createOrder(req: Request, res: Response) {
   try {
@@ -52,27 +53,27 @@ export async function getOrder(req: Request, res: Response) {
   try {
     const id = parseInt(req.params.id);
 
-    // TODO: required to setup the relationship
-    // const result = await db.query.ordersTable.findFirst({
-    //   where: eq(ordersTable.id, id),
-    //   with: {
-    //     items: true,
-    //   },
-    // });
-
-    const orderWithItems = await db
-      .select()
+    const orderWithItemsAndProducts = await db
+      .select({
+        order: ordersTable,
+        orderItem: orderItemsTable,
+        product: productsTable,
+      })
       .from(ordersTable)
-      .where(eq(ordersTable.id, id))
-      .leftJoin(orderItemsTable, eq(ordersTable.id, orderItemsTable.orderId));
+      .leftJoin(orderItemsTable, eq(ordersTable.id, orderItemsTable.orderId))
+      .leftJoin(productsTable, eq(orderItemsTable.productId, productsTable.id))
+      .where(eq(ordersTable.id, id));
 
-    if (orderWithItems.length === 0) {
+    if (orderWithItemsAndProducts.length === 0) {
       res.status(404).send("Order not found");
     }
 
     const mergedOrder = {
-      ...orderWithItems[0].orders,
-      items: orderWithItems.map((oi) => oi.order_items),
+      ...orderWithItemsAndProducts[0].order,
+      items: orderWithItemsAndProducts.map((oi) => ({
+        ...oi.orderItem,
+        product: oi.product,
+      })),
     };
 
     res.status(200).json(mergedOrder);

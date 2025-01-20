@@ -25,3 +25,41 @@ export async function createOrder(items: any[]) {
 
   return data;
 }
+
+export async function getOrders() {
+  const token = useAuth.getState().token;
+
+  const res = await fetch(`${API_URL}/orders`, {
+    method: "GET",
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch orders");
+  }
+
+  return data;
+}
+
+export async function getOrderById(orderId: string) {
+  const token = useAuth.getState().token;
+
+  const res = await fetch(`${API_URL}/orders/${orderId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch orders");
+  }
+
+  return data;
+}
