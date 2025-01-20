@@ -7,19 +7,27 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { Icon } from "@/components/ui/icon";
-import { ShoppingCart, User } from "lucide-react-native";
+import { LogOut, ShoppingCart, User } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Text } from "@/components/ui/text";
 import { useCart } from "@/store/cart-store";
 import { useAuth } from "@/store/authStore";
 import { fetchStripeKeys } from "@/api/stripe";
 import CustomStripeProvider from "@/components/custom-stripe-provider";
+import { Button } from "@/components/ui/button";
 
 const queryClient = new QueryClient();
 
 const RootLayout = () => {
   const cartItemsNum = useCart((state) => state.items.length);
   const isLoggedIn = useAuth((s) => !!s.token);
+  const setUser = useAuth((s) => s.setUser);
+  const setToken = useAuth((s) => s.setToken);
+
+  const handleLogOut = () => {
+    setUser(null);
+    setToken(null);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -44,12 +52,16 @@ const RootLayout = () => {
               options={{
                 title: "Produtos",
                 headerLeft: () =>
-                  !isLoggedIn && (
+                  !isLoggedIn ? (
                     <Link href={"/login"} asChild>
                       <Pressable className="flex-row gap-2">
                         <Icon as={User} />
                       </Pressable>
                     </Link>
+                  ) : (
+                    <Button variant="link" onPress={handleLogOut}>
+                      <Icon as={LogOut} />
+                    </Button>
                   ),
               }}
             />

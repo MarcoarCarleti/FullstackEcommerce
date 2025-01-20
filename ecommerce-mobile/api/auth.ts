@@ -9,11 +9,13 @@ export async function login(email: string, password: string) {
     body: JSON.stringify({ email, password }),
   });
 
+  const data = await res.json();
+
   if (!res.ok) {
-    throw new Error("Failed to login");
+    console.log(data);
+    throw new Error("Failed to login", data);
   }
 
-  const data = await res.json();
   return data;
 }
 
@@ -26,10 +28,12 @@ export async function signup(name: string, email: string, password: string) {
     body: JSON.stringify({ name, email, password }),
   });
 
+  const data = await res.json();
+
+  console.log(data);
   if (!res.ok) {
-    throw new Error("Failed to login");
+    throw new Error(data.message);
   }
 
-  const data = await res.json();
   return data;
 }

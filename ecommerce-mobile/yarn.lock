@@ -1294,7 +1294,7 @@
 
 "@gluestack-ui/toast@^1.0.8":
   version "1.0.8"
-  resolved "https://registry.npmjs.org/@gluestack-ui/toast/-/toast-1.0.8.tgz"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/toast/-/toast-1.0.8.tgz#af77d31fdf5fc440041c3a4e08ede4dd2b950e66"
   integrity sha512-Lwa8YU6rvmo9JhBAiSJZZoSyuyvZMKnBHcDJc+cPTd6OYybHF4bcEAEXQRQRu86EY0SfU63trCC3hEbXaSFWCg==
   dependencies:
     "@gluestack-ui/hooks" "0.1.12"
@@ -1490,6 +1490,18 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
+
+"@legendapp/motion@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@legendapp/motion/-/motion-2.4.0.tgz#eef6f934b784e07fe94631d5648d412f34fa0c6b"
+  integrity sha512-AAYpRLGvxGD5hIGl9sVHyoUufr66zoH82PuxYcKiPSMdCBI3jwZFWh6CuHjV1leRKVIRk2py1rSvIVabG8eqcw==
+  dependencies:
+    "@legendapp/tools" "2.0.1"
+
+"@legendapp/tools@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@legendapp/tools/-/tools-2.0.1.tgz#995fe6cb3e2398b939f645505aa8e1abc84bd07f"
+  integrity sha512-Kxt0HWvWElRK6oybHRzcYxdgaKGwuaiRNreS7usW7QuHXRIHaH4yMcW2YNRG4DHE5fpefv+Bno/BohQcCE4FaA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
