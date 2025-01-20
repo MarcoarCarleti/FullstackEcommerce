@@ -60,14 +60,14 @@ const CartScreen = () => {
     });
   };
 
-  const { mutate: paymentIntentMutation } = useMutation({
+  const paymentIntentMutation = useMutation({
     mutationFn: createPaymentintent,
     async onSuccess(data, variables, context) {
       console.log(data);
       const { customer, ephemeralKey, paymentIntent } = data;
 
       const { error } = await initPaymentSheet({
-        merchantDisplayName: "Example",
+        merchantDisplayName: "Marco Ecommerce",
         customerId: customer,
         customerEphemeralKeySecret: ephemeralKey,
         paymentIntentClientSecret: paymentIntent,
@@ -85,16 +85,13 @@ const CartScreen = () => {
         });
         console.log(error);
       }
+
+      openPaymentSheet();
     },
     onError(error, variables, context) {
       console.log(error);
     },
   });
-
-  useEffect(() => {
-    console.log("object");
-    paymentIntentMutation();
-  }, []);
 
   const createOrderMutation = useMutation({
     mutationFn: () =>
@@ -107,7 +104,7 @@ const CartScreen = () => {
       ),
     onSuccess(data, variables, context) {
       console.log(data);
-      resetCart();
+      paymentIntentMutation.mutate({ orderId: data.id });
     },
     onError(error, variables, context) {
       console.log(error);
@@ -132,6 +129,8 @@ const CartScreen = () => {
       description: "Seu pedido foi confirmado!",
       action: "success",
     });
+    resetCart();
+    router.push(`/orders`);
   };
 
   async function onCheckout() {
@@ -141,10 +140,7 @@ const CartScreen = () => {
 
     try {
       setIsLoading(true);
-
-      openPaymentSheet();
-
-      // createOrderMutation.mutate();
+      createOrderMutation.mutate();
     } finally {
       setIsLoading(false);
     }

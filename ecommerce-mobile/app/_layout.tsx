@@ -7,7 +7,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { Icon } from "@/components/ui/icon";
-import { LogOut, ShoppingCart, User } from "lucide-react-native";
+import { Boxes, LogOut, ShoppingCart, User } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { Text } from "@/components/ui/text";
 import { useCart } from "@/store/cart-store";
@@ -15,6 +15,7 @@ import { useAuth } from "@/store/authStore";
 import { fetchStripeKeys } from "@/api/stripe";
 import CustomStripeProvider from "@/components/custom-stripe-provider";
 import { Button } from "@/components/ui/button";
+import { HStack } from "@/components/ui/hstack";
 
 const queryClient = new QueryClient();
 
@@ -36,15 +37,25 @@ const RootLayout = () => {
         <GluestackUIProvider>
           <Stack
             screenOptions={{
-              headerRight: () =>
-                cartItemsNum > 0 && (
-                  <Link href={"/cart"} asChild>
-                    <Pressable className="flex-row gap-2">
-                      <Icon as={ShoppingCart} />
-                      <Text>{cartItemsNum}</Text>
-                    </Pressable>
-                  </Link>
-                ),
+              headerRight: () => (
+                <HStack space="md">
+                  {isLoggedIn && (
+                    <Link href={"/orders"} asChild>
+                      <Pressable className="flex-row gap-2">
+                        <Icon as={Boxes} />
+                      </Pressable>
+                    </Link>
+                  )}
+                  {cartItemsNum > 0 && (
+                    <Link href={"/cart"} asChild>
+                      <Pressable className="flex-row gap-2">
+                        <Icon as={ShoppingCart} />
+                        <Text>{cartItemsNum}</Text>
+                      </Pressable>
+                    </Link>
+                  )}
+                </HStack>
+              ),
             }}
           >
             <Stack.Screen
@@ -87,6 +98,19 @@ const RootLayout = () => {
               name="(auth)/signup"
               options={{
                 title: "Cadastro",
+              }}
+            />
+            <Stack.Screen
+              name="orders/index"
+              options={{
+                title: "Pedidos",
+              }}
+            />
+
+            <Stack.Screen
+              name="orders/[id]"
+              options={{
+                title: "Detalhes do Pedido",
               }}
             />
           </Stack>
