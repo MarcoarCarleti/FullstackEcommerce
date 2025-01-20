@@ -45,7 +45,7 @@ export async function createPaymentIntent(req: Request, res: Response) {
   // TODO: calculate the amount dynamically
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
-    currency: "usd",
+    currency: "brl",
     customer: customer.id,
   });
 
