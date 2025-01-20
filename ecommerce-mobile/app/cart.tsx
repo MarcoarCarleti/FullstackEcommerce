@@ -24,13 +24,13 @@ import { useEffect, useState } from "react";
 import { View, FlatList, Pressable } from "react-native";
 
 const CartScreen = () => {
-  const items = useCart((state) => state.items);
-  const resetCart = useCart((state) => state.resetCart);
-  const removeProduct = useCart((state) => state.removeProduct);
-  const addProduct = useCart((state) => state.addProduct);
+  const items = useCart((state: any) => state.items);
+  const resetCart = useCart((state: any) => state.resetCart);
+  const removeProduct = useCart((state: any) => state.removeProduct);
+  const addProduct = useCart((state: any) => state.addProduct);
 
-  const isLoggedIn = useAuth((s) => !!s.token);
-  const user = useAuth((s) => s.user);
+  const isLoggedIn = useAuth((s: any) => !!s.token);
+  const user = useAuth((s: any) => s.user);
   const router = useRouter();
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -101,7 +101,7 @@ const CartScreen = () => {
   const createOrderMutation = useMutation({
     mutationFn: () =>
       createOrder(
-        items.map((item) => ({
+        items.map((item: any) => ({
           productId: item.product.id,
           quantity: item.quantity,
           price: item.product.price,
@@ -186,7 +186,7 @@ const CartScreen = () => {
                   bold
                   style={{
                     overflow: "hidden",
-                    maxWidth: "80%", 
+                    maxWidth: "80%",
                   }}
                 >
                   {item.product.name}
@@ -230,7 +230,8 @@ const CartScreen = () => {
           <Text bold className=" text-lg">
             {formatCurrency(
               items.reduce(
-                (total, item) => total + item.product.price * item.quantity,
+                (total: number, item: any) =>
+                  total + item.product.price * item.quantity,
                 0
               )
             )}

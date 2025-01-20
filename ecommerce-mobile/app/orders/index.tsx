@@ -40,7 +40,7 @@ const OrdersScreen = () => {
   }
   return (
     <FlatList
-      data={data.sort((a, b) => b.id - a.id)}
+      data={data.sort((a: any, b: any) => b.id - a.id)}
       contentContainerClassName="gap-2 max-w-[960px] w-full  mx-auto p-2 overflow-y-auto"
       renderItem={({ item }) => {
         const selectedStatus = statuses.find(

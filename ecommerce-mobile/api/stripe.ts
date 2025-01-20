@@ -15,7 +15,7 @@ export async function fetchStripeKeys() {
 }
 
 export async function createPaymentintent({ orderId }: { orderId: number }) {
-  const token = useAuth.getState().token;
+  const token = (useAuth.getState() as any).token;
 
   const res = await fetch(`${API_URL}/stripe/payment-intent`, {
     method: "POST",

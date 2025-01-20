@@ -3,8 +3,8 @@ import { useAuth } from "@/store/authStore";
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export async function createOrder(items: any[]) {
-  const token = useAuth.getState().token;
-  const userId = useAuth.getState().user.id;
+  const token = (useAuth.getState() as any).token;
+  const userId = (useAuth.getState() as any).user.id;
 
   console.log(token);
 
@@ -27,7 +27,7 @@ export async function createOrder(items: any[]) {
 }
 
 export async function getOrders() {
-  const token = useAuth.getState().token;
+  const token = (useAuth.getState() as any).token;
 
   const res = await fetch(`${API_URL}/orders`, {
     method: "GET",
@@ -46,7 +46,7 @@ export async function getOrders() {
 }
 
 export async function getOrderById(orderId: string) {
-  const token = useAuth.getState().token;
+  const token = (useAuth.getState() as any).token;
 
   const res = await fetch(`${API_URL}/orders/${orderId}`, {
     method: "GET",

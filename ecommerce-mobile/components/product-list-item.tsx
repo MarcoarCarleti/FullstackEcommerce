@@ -7,7 +7,7 @@ import { Heading } from "./ui/heading";
 import { formatCurrency } from "@/utils";
 import { Pressable } from "react-native";
 
-function ProductListItem({ product }) {
+function ProductListItem({ product }: { product: any }) {
   return (
     <Link href={`product/${product.id}`} asChild>
       <Pressable className="flex-1">

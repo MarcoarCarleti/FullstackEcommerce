@@ -39,7 +39,7 @@ const OrderScreen = () => {
   const selectedStatus = statuses.find(({ status }) => status === data?.status);
 
   const totalPrice = data.items.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total: number, item: any) => total + item.price * item.quantity,
     0
   );
 

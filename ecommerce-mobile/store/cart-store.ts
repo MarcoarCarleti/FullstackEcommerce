@@ -7,16 +7,16 @@ export const useCart = create(
     (set) => ({
       items: [],
 
-      addProduct: (product) =>
-        set((state) => {
+      addProduct: (product: any) =>
+        set((state: any) => {
           // Verifica se o produto já está no carrinho
           const existingProductIndex = state.items.findIndex(
-            (item) => item.product.id === product.id
+            (item: any) => item.product.id === product.id
           );
 
           if (existingProductIndex >= 0) {
             // Atualiza a quantidade do produto existente
-            const updatedItems = state.items.map((item, index) =>
+            const updatedItems = state.items.map((item: any, index: any) =>
               index === existingProductIndex
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
@@ -30,23 +30,26 @@ export const useCart = create(
           };
         }),
       removeProduct: (productId: number) =>
-        set((state) => {
+        set((state: any) => {
           const existingProductIndex = state.items.findIndex(
-            (item) => item.product.id === productId
+            (item: any) => item.product.id === productId
           );
 
           if (existingProductIndex >= 0) {
-            const updatedItems = state.items.reduce((acc, item, index) => {
-              if (index === existingProductIndex) {
-                // Diminui a quantidade ou remove se for 1
-                if (item.quantity > 1) {
-                  acc.push({ ...item, quantity: item.quantity - 1 });
+            const updatedItems = state.items.reduce(
+              (acc: any, item: any, index: any) => {
+                if (index === existingProductIndex) {
+                  // Diminui a quantidade ou remove se for 1
+                  if (item.quantity > 1) {
+                    acc.push({ ...item, quantity: item.quantity - 1 });
+                  }
+                } else {
+                  acc.push(item);
                 }
-              } else {
-                acc.push(item);
-              }
-              return acc;
-            }, []);
+                return acc;
+              },
+              []
+            );
 
             return { items: updatedItems };
           }

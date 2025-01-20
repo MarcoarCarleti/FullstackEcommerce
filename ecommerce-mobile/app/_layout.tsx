@@ -20,10 +20,10 @@ import { HStack } from "@/components/ui/hstack";
 const queryClient = new QueryClient();
 
 const RootLayout = () => {
-  const cartItemsNum = useCart((state) => state.items.length);
-  const isLoggedIn = useAuth((s) => !!s.token);
-  const setUser = useAuth((s) => s.setUser);
-  const setToken = useAuth((s) => s.setToken);
+  const cartItemsNum = useCart((state: any) => state.items.length);
+  const isLoggedIn = useAuth((s: any) => !!s.token);
+  const setUser = useAuth((s: any) => s.setUser);
+  const setToken = useAuth((s: any) => s.setToken);
 
   const handleLogOut = () => {
     setUser(null);

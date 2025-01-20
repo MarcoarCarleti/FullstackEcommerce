@@ -8,8 +8,8 @@ export const useAuth = create(
       user: null,
       token: null,
 
-      setUser: (user) => set({ user }),
-      setToken: (token) => set({ token }),
+      setUser: (user: any) => set({ user }),
+      setToken: (token: any) => set({ token }),
     }),
     {
       name: "auth-store",

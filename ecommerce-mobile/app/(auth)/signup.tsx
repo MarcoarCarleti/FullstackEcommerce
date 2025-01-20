@@ -26,9 +26,9 @@ export default function LoginScreen() {
 
   const [toastId, setToastId] = useState(0);
 
-  const setUser = useAuth((s) => s.setUser);
-  const setToken = useAuth((s) => s.setToken);
-  const isLoggedIn = useAuth((s) => !!s.token);
+  const setUser = useAuth((s: any) => s.setUser);
+  const setToken = useAuth((s: any) => s.setToken);
+  const isLoggedIn = useAuth((s: any) => !!s.token);
 
   const toast = useToast();
 
